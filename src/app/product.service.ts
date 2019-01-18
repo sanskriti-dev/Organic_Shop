@@ -15,8 +15,8 @@ export class ProductService {
 
   }
 
-  getAll():  Observable{
-    return this.db.list('/products').snapshotChanges();
+  getAll() {
+    return this.db.list('/products');
   }
 
   get(productId): Observable<object> {

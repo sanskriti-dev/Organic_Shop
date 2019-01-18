@@ -14,7 +14,7 @@ export class AdminProductsComponent {
 
 
   constructor(private productService: ProductService) {
-    this.products$ = this.productService.getAll();
+    this.products$ = this.productService.getAll().snapshotChanges();
     this.key$ = this.products$.map(changes => {
       return changes.map(c => ({
         key: c.payload.key, ...c.payload.val()
