@@ -18,19 +18,23 @@ export class ProductsComponent {
   category$;
   category: string;
 
-  constructor(private productService: ProductService, private category: CategoryService, route: ActivatedRoute) {
-    productService.getAll().valueChanges().subscribe(products => this.products = products);
-    this.category$ = this.category.getCategory();
+  constructor(private productService: ProductService, private category1: CategoryService, route: ActivatedRoute) {
+    productService.getAll().valueChanges().switchMap(products => {
+      this.products = products;
+      return route.queryParamMap;
+    }).subscribe(params => {
+      this.category = params.get('category');
+      this.filteredProducts = (this.category) ? this.products.filter(p => p.category === this.category) : this.products;
+
+
+    });
+    this.category$ = this.category1.getCategory().snapshotChanges();
     this.key1$ = this.category$.map(changes => {
         return changes.map(c => ({
           key: c.payload.key, ...c.payload.val()
         }));
       }
     );
-    route.queryParamMap.subscribe(params => {
-      this.category = params.get('category');
-      this.filteredProducts = (this.category) ? this.products.filter(p => p.category === this.category) : this.products;
 
-
-    });
-  }}
+  }
+}

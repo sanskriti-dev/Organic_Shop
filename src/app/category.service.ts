@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 export class CategoryService {
 
   constructor( private db: AngularFireDatabase) { }
-  getCategory(): Observable<any> {
-    return this.db.list('/categories').snapshotChanges();
+  getCategory() {
+    return this.db.list('/categories');
   }
 }
