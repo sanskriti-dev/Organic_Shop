@@ -10,7 +10,7 @@ import {Product} from '../../models/product';
 })
 export class AdminProductsComponent {
   products$: Observable;
-  key$: Observable<Product>;
+  key$;
 
 
   constructor(private productService: ProductService) {
