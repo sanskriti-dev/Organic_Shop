@@ -9,7 +9,7 @@ import {Product} from '../../models/product';
   styleUrls: ['./admin-products.component.css']
 })
 export class AdminProductsComponent {
-  products$: Observable;
+  products$;
   key$;
 
 
